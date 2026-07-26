@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
-const interiorImg = '/clinic_interior.jpg';
+import interiorImg from '@/assets/images/clinic_interior.jpg';
 
 export function About() {
   return (

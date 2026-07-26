@@ -1,8 +1,8 @@
 import { Link } from 'wouter';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-const heroBg = '/hero-bg.jpg';
-const heroVideo = '/Heo-video.mp4';
+import heroBg from '@/assets/images/hero-bg.jpg';
+import heroVideo from '@/assets/images/Heo-video.mp4';
 
 export function Hero() {
   const textVariants: Variants = {

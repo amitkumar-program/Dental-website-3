@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-const smileLabImg = '/smile_lab_interior.jpg';
+import smileLabImg from '@/assets/images/smile_lab_interior.jpg';
 import {
   Hammer,
   Sparkles,

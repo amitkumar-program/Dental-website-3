@@ -1,9 +1,9 @@
 
 import { motion } from 'framer-motion';
 
-const drElena = '/dr_elena_new.jpg';
-const drAdrian = '/dr_adrian_new.jpg';
-const drPriya = '/dr_priya_new.jpg';
+import drElena from '@/assets/images/dr_elena_new.jpg';
+import drAdrian from '@/assets/images/dr_adrian_new.jpg';
+import drPriya from '@/assets/images/dr_priya_new.jpg';
 
 const team = [
   {

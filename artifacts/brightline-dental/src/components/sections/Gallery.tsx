@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 
-const beforeAfter1 = '/before_after_1.jpg';
-const beforeAfter2 = '/before_after_2.jpg';
+import beforeAfter1 from '@/assets/images/before_after_1.jpg';
+import beforeAfter2 from '@/assets/images/before_after_2.jpg';
 
 // In a real app we'd have 4 distinct images, here we'll reuse the two generated ones
 // to demonstrate the carousel functionality
