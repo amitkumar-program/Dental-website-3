@@ -1,0 +1,6 @@
+{
+  "name": "Brightline Dental Studio",
+  "description": "A modern, professional web application for a premier dental clinic, featuring complete appointment booking, customizable patient forms, wellness subscriptions, and a robust admin dashboard.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

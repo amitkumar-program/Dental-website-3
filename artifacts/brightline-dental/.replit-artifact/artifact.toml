@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Brightline Dental Studio"
+version = "1.0.0"
+id = "artifacts/brightline-dental"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20073
+
+[services.development]
+run = "pnpm --filter @workspace/brightline-dental run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/brightline-dental", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/brightline-dental/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20073"
+BASE_PATH = "/"

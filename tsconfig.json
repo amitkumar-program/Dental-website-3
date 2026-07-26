@@ -1,0 +1,27 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/api-zod": ["./lib/api-zod/src/index.ts"],
+      "@workspace/db": ["./lib/db/src/index.ts"],
+      "@workspace/db/schema": ["./lib/db/src/schema/index.ts"],
+      "@workspace/api-client-react": ["./lib/api-client-react/src/index.ts"]
+    }
+  },
+  "include": [
+    "api/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "./lib/db"
+    },
+    {
+      "path": "./lib/api-client-react"
+    },
+    {
+      "path": "./lib/api-zod"
+    }
+  ]
+}

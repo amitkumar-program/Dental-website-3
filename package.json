@@ -1,0 +1,27 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "artifacts/*",
+    "lib/*",
+    "lib/integrations/*",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "PORT=3001 npm run dev --workspace=@workspace/api-server & npm run dev --workspace=@workspace/brightline-dental",
+    "build": "npm run typecheck && npm run build --workspaces --if-present && mkdir -p dist && cp -r artifacts/brightline-dental/dist/* dist/",
+    "start": "node --enable-source-maps artifacts/api-server/dist/index.mjs",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present",
+    "lint": "npm run typecheck"
+  },
+  "dependencies": {
+    "@replit/connectors-sdk": "^0.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.5",
+    "typescript": "~5.9.3"
+  }
+}

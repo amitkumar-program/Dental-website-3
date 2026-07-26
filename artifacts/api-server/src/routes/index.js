@@ -1,0 +1,13 @@
+import { Router } from "express";
+import healthRouter from "./health.js";
+import appointmentsRouter from "./appointments.js";
+import adminRouter from "./admin.js";
+import patientFormsRouter from "./patientForms.js";
+import wellnessSubscriptionsRouter from "./wellnessSubscriptions.js";
+const router = Router();
+router.use(healthRouter);
+router.use("/appointments", appointmentsRouter);
+router.use("/admin", adminRouter);
+router.use("/patient-forms", patientFormsRouter);
+router.use("/wellness-subscriptions", wellnessSubscriptionsRouter);
+export default router;
