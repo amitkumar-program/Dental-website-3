@@ -30,10 +30,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm install
 
       - name: Build static site
         run: npm run build
@@ -41,7 +40,13 @@ jobs:
           NODE_ENV: production
 
       - name: Create 404.html fallback for SPA routing
-        run: cp artifacts/brightline-dental/dist/index.html artifacts/brightline-dental/dist/404.html || cp dist/index.html dist/404.html
+        run: |
+          if [ -d "dist" ]; then
+            cp dist/index.html dist/404.html
+          fi
+          if [ -d "artifacts/brightline-dental/dist" ]; then
+            cp artifacts/brightline-dental/dist/index.html artifacts/brightline-dental/dist/404.html
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -49,7 +54,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'artifacts/brightline-dental/dist'
+          path: 'dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
