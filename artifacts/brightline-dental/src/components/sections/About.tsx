@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
+import clinicInterior from '@/assets/images/clinic_interior.jpg';
 
 export function About() {
   return (
@@ -70,7 +71,7 @@ export function About() {
               {/* Note: In a real app this would use the generated image, but since Vite needs to bundle it,
                   and we generated it dynamically, we use an img tag with the imported path. */}
               <img 
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1200"
+                src={clinicInterior}
                 alt="Brightline Dental Studio Interior" 
                 className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
               />
