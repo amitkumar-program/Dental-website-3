@@ -34,10 +34,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Build static site
         run: npm run build
         env:
           NODE_ENV: production
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - name: Create 404.html fallback for SPA routing
         run: |
@@ -47,9 +52,6 @@ jobs:
           if [ -d "artifacts/brightline-dental/dist" ]; then
             cp artifacts/brightline-dental/dist/index.html artifacts/brightline-dental/dist/404.html
           fi
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
