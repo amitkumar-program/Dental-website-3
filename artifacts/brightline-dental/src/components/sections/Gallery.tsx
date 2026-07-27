@@ -2,21 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, Pause, X, Maximize2, Sparkles, Video, Image as ImageIcon } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
-
 import beforeAfter1 from '@/assets/images/before_after_1.jpg';
 import beforeAfter2 from '@/assets/images/before_after_2.jpg';
-import clinicInterior from '@/assets/images/clinic_interior.jpg';
-import smileLab from '@/assets/images/smile_lab_interior.jpg';
-import facility1 from '@/assets/images/clinic_facility_1.jpg';
-import facility2 from '@/assets/images/clinic_facility_2.jpg';
-import clinicScreenshot from '@/assets/images/clinic_screenshot.jpg';
-import heroVideo from '@/assets/images/hero-video.mp4';
-import heroBg from '@/assets/images/hero-bg.jpg';
 
 export interface GalleryItem {
   id: string | number;
   type: 'image' | 'video';
-  category: 'before_after' | 'clinic' | 'video';
+  category: 'before_after';
   image?: string;
   publicFilename?: string;
   videoUrl?: string;
@@ -27,22 +19,10 @@ export interface GalleryItem {
 
 const galleryData: GalleryItem[] = [
   {
-    id: 'video-tour',
-    type: 'video',
-    category: 'video',
-    videoUrl: heroVideo,
-    image: heroBg,
-    publicFilename: 'hero-bg.jpg',
-    title: "Brightline Dental Studio - Video Tour",
-    description: "Take a 3D virtual look inside our modern studio, state-of-the-art operatory suites, and gentle patient lounge.",
-    tag: "Studio Tour"
-  },
-  {
     id: 1,
     type: 'image',
     category: 'before_after',
     image: beforeAfter1,
-    publicFilename: 'before_after_1.jpg',
     title: "Cosmetic Veneers Transformation",
     description: "Custom porcelain veneers crafted to complement natural facial symmetry and achieve a radiant, natural smile.",
     tag: "Cosmetic Dentistry"
@@ -52,60 +32,9 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'before_after',
     image: beforeAfter2,
-    publicFilename: 'before_after_2.jpg',
     title: "Professional Whitening & Alignment",
     description: "In-office laser whitening paired with subtle alignment therapy for bright, evenly spaced teeth.",
     tag: "Whitening & Aligners"
-  },
-  {
-    id: 3,
-    type: 'image',
-    category: 'clinic',
-    image: clinicInterior,
-    publicFilename: 'clinic_interior.jpg',
-    title: "Ergonomic Treatment Operatory",
-    description: "Designed for ultimate patient relaxation with ceiling monitors, noise-canceling headsets, and ambient lighting.",
-    tag: "Studio Interior"
-  },
-  {
-    id: 4,
-    type: 'image',
-    category: 'clinic',
-    image: smileLab,
-    publicFilename: 'smile_lab_interior.jpg',
-    title: "3D Digital Smile Design Lab",
-    description: "On-site CAD/CAM milling and digital intraoral scanners for same-day crowns and precision treatment planning.",
-    tag: "Digital Tech"
-  },
-  {
-    id: 5,
-    type: 'image',
-    category: 'clinic',
-    image: facility1,
-    publicFilename: 'clinic_facility_1.jpg',
-    title: "Modern Clinical Care Center",
-    description: "Equipped with advanced air purification, low-radiation digital X-rays, and sterile processing centers.",
-    tag: "Facility"
-  },
-  {
-    id: 6,
-    type: 'image',
-    category: 'clinic',
-    image: facility2,
-    publicFilename: 'clinic_facility_2.jpg',
-    title: "Warm Patient Reception Lounge",
-    description: "A calming environment with complimentary beverages, quiet seating, and friendly concierge reception.",
-    tag: "Lounge"
-  },
-  {
-    id: 7,
-    type: 'image',
-    category: 'clinic',
-    image: clinicScreenshot,
-    publicFilename: 'clinic_screenshot.jpg',
-    title: "Comprehensive Oral Health Suite",
-    description: "High-definition intraoral cameras allow patients to see exactly what the doctor sees in real time.",
-    tag: "Diagnostics"
   }
 ];
 
@@ -164,7 +93,7 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
         {/* Tag badge */}
         <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-medium">
           {item.type === 'video' ? <Video className="w-3 h-3 text-primary" /> : <ImageIcon className="w-3 h-3 text-primary" />}
-          {item.tag || (item.category === 'before_after' ? 'Before & After' : 'Studio')}
+          {item.tag || 'Before & After'}
         </div>
 
         <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full bg-white/80 backdrop-blur-md text-foreground">
@@ -187,13 +116,9 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
 }
 
 export function Gallery() {
-  const [activeTab, setActiveTab] = useState<'all' | 'before_after' | 'clinic' | 'video'>('all');
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
-  const filteredItems = galleryData.filter(item => {
-    if (activeTab === 'all') return true;
-    return item.category === activeTab;
-  });
+  const filteredItems = galleryData;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: 'start',
@@ -234,13 +159,13 @@ export function Gallery() {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
               <Sparkles className="w-3.5 h-3.5" />
-              Interactive Media Gallery
+              Before & After
             </div>
             <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-4">
               Real Smiles, <span className="text-primary italic">Real Results</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Explore patient transformations, 3D video studio tours, and our state-of-the-art dental care center.
+              Explore patient transformations and see the Brightline difference.
             </p>
           </motion.div>
 
@@ -267,28 +192,6 @@ export function Gallery() {
               <ChevronRight className="w-5 h-5" />
             </button>
           </motion.div>
-        </div>
-
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2 mb-8 border-b border-border/50 pb-4">
-          {[
-            { id: 'all', label: 'All Showcase' },
-            { id: 'video', label: 'Video Studio Tour' },
-            { id: 'before_after', label: 'Before & After' },
-            { id: 'clinic', label: 'Clinic & Tech' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                activeTab === tab.id
-                  ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105'
-                  : 'bg-secondary/70 hover:bg-secondary text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
         </div>
 
         {/* Carousel / Grid */}

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import smileLabImg from '@/assets/images/smile_lab_interior.jpg';
 import {
   Hammer,
   Sparkles,
@@ -209,7 +208,7 @@ export default function ConstructionPage() {
               <div className="relative rounded-3xl overflow-hidden border border-border bg-slate-950 shadow-xl group">
                 {/* Whimsical Tooth Construction Image */}
                 <img
-                  src={smileLabImg}
+                  src="https://images.unsplash.com/photo-1598256989800-fea5c5ce87ce?auto=format&fit=crop&q=80&w=1200"
                   alt="Smile Construction Zone"
                   className="w-full h-auto object-cover opacity-90 group-hover:scale-102 transition-transform duration-700"
                 />

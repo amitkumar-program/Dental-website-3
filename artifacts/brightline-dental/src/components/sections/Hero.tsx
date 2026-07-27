@@ -1,26 +1,9 @@
-import { useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import heroBg from '@/assets/images/hero-bg.jpg';
-import heroVideo from '@/assets/images/hero-video.mp4';
+import heroBg from '@/assets/images/hero_bg.jpg';
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay restricted on mobile - poster/background handles display
-        });
-      }
-    }
-  }, []);
-
   const textVariants: Variants = {
     hidden: { opacity: 0, y: 28 },
     visible: (i: number) => ({
@@ -39,27 +22,12 @@ export function Hero() {
       id="home"
       className="relative min-h-[100dvh] flex items-center overflow-hidden bg-[#0D1117]"
     >
-      {/* Background Image Layer (Always visible underneath as poster or fallback) */}
+      {/* Background Image Layer */}
       <img
         src={heroBg}
         alt="Brightline Dental Studio Background"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
       />
-
-      {/* Background Video Layer */}
-      <video
-        ref={videoRef}
-        src={heroVideo}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster={heroBg}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
-      >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
       {/* ── Overlays ───────────────────────────────────────────────── */}
       {/* Dark vignette */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 pointer-events-none" />
