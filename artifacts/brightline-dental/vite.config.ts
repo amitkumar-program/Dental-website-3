@@ -13,8 +13,8 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-let basePath = process.env.BASE_PATH || (process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` : '/');
-if (basePath !== '/' && !basePath.endsWith('/')) {
+let basePath = process.env.BASE_PATH || '/Dental-website-3/';
+if (!basePath.endsWith('/')) {
   basePath += '/';
 }
 
