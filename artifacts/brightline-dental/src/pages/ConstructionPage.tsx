@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import smileLabImg from '@/assets/images/smile_lab_interior.jpg';
-
-const FALLBACK_LAB = smileLabImg;
 import {
   Hammer,
   Sparkles,
@@ -212,18 +210,6 @@ export default function ConstructionPage() {
                 {/* Whimsical Tooth Construction Image */}
                 <img
                   src={smileLabImg}
-                  onError={(e) => {
-                    const target = e.currentTarget as HTMLImageElement;
-                    if (!target.dataset.attemptedBase) {
-                      target.dataset.attemptedBase = 'true';
-                      target.src = `${import.meta.env.BASE_URL}smile_lab_interior.jpg`;
-                    } else if (!target.dataset.attemptedRelative) {
-                      target.dataset.attemptedRelative = 'true';
-                      target.src = './smile_lab_interior.jpg';
-                    } else {
-                      target.src = FALLBACK_LAB;
-                    }
-                  }}
                   alt="Smile Construction Zone"
                   className="w-full h-auto object-cover opacity-90 group-hover:scale-102 transition-transform duration-700"
                 />

@@ -1,25 +1,9 @@
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
 import interiorImg from '@/assets/images/clinic_interior.jpg';
 
 export function About() {
-  const [imgSrc, setImgSrc] = useState(interiorImg);
-  const [attempt, setAttempt] = useState(0);
-
-  const handleError = () => {
-    if (attempt === 0) {
-      setAttempt(1);
-      setImgSrc(`${import.meta.env.BASE_URL}clinic_interior.jpg`);
-    } else if (attempt === 1) {
-      setAttempt(2);
-      setImgSrc('./clinic_interior.jpg');
-    } else {
-      setImgSrc(interiorImg);
-    }
-  };
-
   return (
     <section id="about" className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -87,8 +71,7 @@ export function About() {
               {/* Note: In a real app this would use the generated image, but since Vite needs to bundle it,
                   and we generated it dynamically, we use an img tag with the imported path. */}
               <img 
-                src={imgSrc} 
-                onError={handleError}
+                src={interiorImg} 
                 alt="Brightline Dental Studio Interior" 
                 className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
               />

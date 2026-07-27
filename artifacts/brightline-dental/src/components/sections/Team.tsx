@@ -1,10 +1,9 @@
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import drElena from '@/assets/images/dr_elena.jpg';
 import drAdrian from '@/assets/images/dr_adrian.jpg';
-import drSophia from '@/assets/images/dr_sophia_new.jpg';
+import drSophia from '@/assets/images/dr_sophia.jpg';
 
 const team = [
   {
@@ -12,43 +11,22 @@ const team = [
     role: "Founder · General & Cosmetic",
     bio: "Dr. Marsh founded Brightline with a vision to blend clinical excellence with genuine patient comfort.",
     image: drElena,
-    filenames: ['dr_elena.jpg', 'dr_elena_new.jpg']
   },
   {
     name: "Dr. Adrian Cole, DMD",
     role: "Orthodontics & Invisalign",
     bio: "Dr. Cole has helped hundreds of patients achieve straighter, more confident smiles through cutting-edge aligner technology.",
     image: drAdrian,
-    filenames: ['dr_adrian.jpg', 'dr_adrian_new.jpg']
   },
   {
     name: "Dr. Sophia Holeson, DDS",
     role: "Pediatric & Family Dentistry",
     bio: "Dr. Holeson specializes in gentle pediatric dentistry, creating a warm, joyful environment where young patients build healthy dental habits for life.",
     image: drSophia,
-    filenames: ['dr_sophia_new.jpg', 'dr_sophia.jpg']
   }
 ];
 
 function TeamMemberCard({ member, index }: { member: typeof team[0]; index: number }) {
-  const [imgSrc, setImgSrc] = useState(member.image);
-  const [attempt, setAttempt] = useState(0);
-
-  const handleError = () => {
-    if (attempt === 0) {
-      setAttempt(1);
-      setImgSrc(`${import.meta.env.BASE_URL}${member.filenames[0]}`);
-    } else if (attempt === 1) {
-      setAttempt(2);
-      setImgSrc(`${import.meta.env.BASE_URL}${member.filenames[1]}`);
-    } else if (attempt === 2) {
-      setAttempt(3);
-      setImgSrc(`./${member.filenames[0]}`);
-    } else {
-      setImgSrc(member.image);
-    }
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -60,10 +38,8 @@ function TeamMemberCard({ member, index }: { member: typeof team[0]; index: numb
       <div className="bg-white rounded-3xl p-4 shadow-sm border border-border/50 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
         <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 bg-secondary relative">
           <img 
-            src={imgSrc} 
-            onError={handleError}
+            src={member.image} 
             alt={member.name} 
-            referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
           />
           {/* Subtle blue overlay gradient */}

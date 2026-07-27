@@ -109,25 +109,9 @@ const galleryData: GalleryItem[] = [
   }
 ];
 
-const FALLBACK_GALLERY = 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop';
-
 function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: GalleryItem) => void }) {
-  const [imgSrc, setImgSrc] = useState(item.image || FALLBACK_GALLERY);
-  const [attempt, setAttempt] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handleImgError = () => {
-    if (attempt === 0 && item.publicFilename) {
-      setAttempt(1);
-      setImgSrc(`${import.meta.env.BASE_URL}${item.publicFilename}`);
-    } else if (attempt === 1 && item.publicFilename) {
-      setAttempt(2);
-      setImgSrc(`./${item.publicFilename}`);
-    } else {
-      setImgSrc(item.image || clinicInterior);
-    }
-  };
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -171,8 +155,7 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
           </div>
         ) : (
           <img 
-            src={imgSrc} 
-            onError={handleImgError}
+            src={item.image} 
             alt={item.title} 
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />

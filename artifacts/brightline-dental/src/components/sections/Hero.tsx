@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
@@ -7,7 +7,6 @@ import heroVideo from '@/assets/images/hero-video.mp4';
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [bgSrc, setBgSrc] = useState(heroBg);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -42,14 +41,7 @@ export function Hero() {
     >
       {/* Background Image Layer (Always visible underneath as poster or fallback) */}
       <img
-        src={bgSrc}
-        onError={() => {
-          if (bgSrc !== `${import.meta.env.BASE_URL}hero-bg.jpg`) {
-            setBgSrc(`${import.meta.env.BASE_URL}hero-bg.jpg`);
-          } else {
-            setBgSrc(heroBg);
-          }
-        }}
+        src={heroBg}
         alt="Brightline Dental Studio Background"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
       />
@@ -57,17 +49,16 @@ export function Hero() {
       {/* Background Video Layer */}
       <video
         ref={videoRef}
+        src={heroVideo}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        poster={bgSrc}
+        poster={heroBg}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
       >
         <source src={heroVideo} type="video/mp4" />
-        <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
-        <source src="./hero-video.mp4" type="video/mp4" />
       </video>
       {/* ── Overlays ───────────────────────────────────────────────── */}
       {/* Dark vignette */}
