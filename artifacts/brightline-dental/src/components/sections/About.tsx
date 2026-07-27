@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
 import interiorImg from '@/assets/images/clinic_interior.jpg';
 
-const FALLBACK_INTERIOR = 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200&auto=format&fit=crop';
-
 export function About() {
   const [imgSrc, setImgSrc] = useState(interiorImg);
   const [attempt, setAttempt] = useState(0);
@@ -18,7 +16,7 @@ export function About() {
       setAttempt(2);
       setImgSrc('./clinic_interior.jpg');
     } else {
-      setImgSrc(FALLBACK_INTERIOR);
+      setImgSrc(interiorImg);
     }
   };
 

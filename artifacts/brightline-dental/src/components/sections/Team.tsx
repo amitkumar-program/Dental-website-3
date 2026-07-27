@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-import drElena from '@/assets/images/dr_elena_new.jpg';
-import drAdrian from '@/assets/images/dr_adrian_new.jpg';
+import drElena from '@/assets/images/dr_elena.jpg';
+import drAdrian from '@/assets/images/dr_adrian.jpg';
 import drSophia from '@/assets/images/dr_sophia_new.jpg';
 
 const team = [
@@ -12,24 +12,21 @@ const team = [
     role: "Founder · General & Cosmetic",
     bio: "Dr. Marsh founded Brightline with a vision to blend clinical excellence with genuine patient comfort.",
     image: drElena,
-    publicFilename: 'dr_elena_new.jpg',
-    fallback: 'https://images.unsplash.com/photo-1594824813566-78a9dd603f0b?q=80&w=1200&auto=format&fit=crop'
+    filenames: ['dr_elena.jpg', 'dr_elena_new.jpg']
   },
   {
     name: "Dr. Adrian Cole, DMD",
     role: "Orthodontics & Invisalign",
     bio: "Dr. Cole has helped hundreds of patients achieve straighter, more confident smiles through cutting-edge aligner technology.",
     image: drAdrian,
-    publicFilename: 'dr_adrian_new.jpg',
-    fallback: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop'
+    filenames: ['dr_adrian.jpg', 'dr_adrian_new.jpg']
   },
   {
     name: "Dr. Sophia Holeson, DDS",
     role: "Pediatric & Family Dentistry",
     bio: "Dr. Holeson specializes in gentle pediatric dentistry, creating a warm, joyful environment where young patients build healthy dental habits for life.",
     image: drSophia,
-    publicFilename: 'dr_sophia_new.jpg',
-    fallback: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1200&auto=format&fit=crop'
+    filenames: ['dr_sophia_new.jpg', 'dr_sophia.jpg']
   }
 ];
 
@@ -40,12 +37,15 @@ function TeamMemberCard({ member, index }: { member: typeof team[0]; index: numb
   const handleError = () => {
     if (attempt === 0) {
       setAttempt(1);
-      setImgSrc(`${import.meta.env.BASE_URL}${member.publicFilename}`);
+      setImgSrc(`${import.meta.env.BASE_URL}${member.filenames[0]}`);
     } else if (attempt === 1) {
       setAttempt(2);
-      setImgSrc(`./${member.publicFilename}`);
+      setImgSrc(`${import.meta.env.BASE_URL}${member.filenames[1]}`);
+    } else if (attempt === 2) {
+      setAttempt(3);
+      setImgSrc(`./${member.filenames[0]}`);
     } else {
-      setImgSrc(member.fallback);
+      setImgSrc(member.image);
     }
   };
 

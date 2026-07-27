@@ -5,12 +5,9 @@ import { ArrowDown } from 'lucide-react';
 import heroBg from '@/assets/images/hero-bg.jpg';
 import heroVideo from '@/assets/images/hero-video.mp4';
 
-const FALLBACK_HERO_BG = 'https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=1920&auto=format&fit=crop';
-
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [bgSrc, setBgSrc] = useState(heroBg);
-  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -19,7 +16,7 @@ export function Hero() {
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Video autoplay restricted by browser - poster/background image handles display
+          // Autoplay restricted on mobile - poster/background handles display
         });
       }
     }
@@ -50,7 +47,7 @@ export function Hero() {
           if (bgSrc !== `${import.meta.env.BASE_URL}hero-bg.jpg`) {
             setBgSrc(`${import.meta.env.BASE_URL}hero-bg.jpg`);
           } else {
-            setBgSrc(FALLBACK_HERO_BG);
+            setBgSrc(heroBg);
           }
         }}
         alt="Brightline Dental Studio Background"
@@ -58,27 +55,20 @@ export function Hero() {
       />
 
       {/* Background Video Layer */}
-      {!videoError && (
-        <video
-          ref={videoRef}
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={bgSrc}
-          onError={() => setVideoError(true)}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
-        >
-          <source src={heroVideo} type="video/mp4" />
-          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
-          <source src={`${import.meta.env.BASE_URL}Heo-video.mp4`} type="video/mp4" />
-          <source src="./hero-video.mp4" type="video/mp4" />
-          <source src="./Heo-video.mp4" type="video/mp4" />
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-      )}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={bgSrc}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+      >
+        <source src={heroVideo} type="video/mp4" />
+        <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
+        <source src="./hero-video.mp4" type="video/mp4" />
+      </video>
       {/* ── Overlays ───────────────────────────────────────────────── */}
       {/* Dark vignette */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 pointer-events-none" />

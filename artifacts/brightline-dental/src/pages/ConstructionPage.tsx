@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import smileLabImg from '@/assets/images/smile_lab_interior.jpg';
 
-const FALLBACK_LAB = 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200&auto=format&fit=crop';
+const FALLBACK_LAB = smileLabImg;
 import {
   Hammer,
   Sparkles,

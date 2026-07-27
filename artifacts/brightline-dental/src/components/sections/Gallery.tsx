@@ -125,7 +125,7 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
       setAttempt(2);
       setImgSrc(`./${item.publicFilename}`);
     } else {
-      setImgSrc(FALLBACK_GALLERY);
+      setImgSrc(item.image || clinicInterior);
     }
   };
 
