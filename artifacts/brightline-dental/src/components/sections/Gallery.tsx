@@ -32,16 +32,20 @@ const gallery = [
   }
 ];
 
+const FALLBACK_GALLERY = 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop';
+
 // Reusable Image Slider Component for Before/After
 // (Note: The prompt generated a single image containing both before/after for each, 
 // so we will display them cleanly rather than building an interactive divider 
 // which requires two separate images)
 function GalleryCard({ item }: { item: typeof gallery[0] }) {
+  const [imgSrc, setImgSrc] = useState(item.image);
   return (
     <div className="relative group rounded-3xl overflow-hidden bg-white border border-border/50 shadow-sm">
       <div className="aspect-[4/3] relative overflow-hidden bg-secondary">
         <img 
-          src={item.image} 
+          src={imgSrc} 
+          onError={() => setImgSrc(FALLBACK_GALLERY)}
           alt={item.title} 
           className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
         />

@@ -1,10 +1,30 @@
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import heroBg from '@/assets/images/hero-bg.jpg';
-import heroVideo from '@/assets/images/Heo-video.mp4';
+import heroVideo from '@/assets/images/hero-video.mp4';
+
+const FALLBACK_HERO_BG = 'https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=1920&auto=format&fit=crop';
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [bgSrc, setBgSrc] = useState(heroBg);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Video autoplay restricted by browser - poster/background image handles display
+        });
+      }
+    }
+  }, []);
+
   const textVariants: Variants = {
     hidden: { opacity: 0, y: 28 },
     visible: (i: number) => ({
@@ -23,18 +43,32 @@ export function Hero() {
       id="home"
       className="relative min-h-[100dvh] flex items-center overflow-hidden bg-[#0D1117]"
     >
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
-        poster={heroBg}
-      >
-        <source src={heroVideo} type="video/mp4" />
-        <source src="/Heo-video.mp4" type="video/mp4" />
-      </video>
+      {/* Background Image Layer (Always visible underneath as poster or fallback) */}
+      <img
+        src={bgSrc}
+        onError={() => setBgSrc(FALLBACK_HERO_BG)}
+        alt="Brightline Dental Studio Background"
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+      />
+
+      {/* Background Video Layer */}
+      {!videoError && (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={bgSrc}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+        >
+          <source src={heroVideo} type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}Heo-video.mp4`} type="video/mp4" />
+        </video>
+      )}
       {/* ── Overlays ───────────────────────────────────────────────── */}
       {/* Dark vignette */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 pointer-events-none" />
