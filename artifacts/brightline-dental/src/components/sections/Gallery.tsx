@@ -18,6 +18,7 @@ export interface GalleryItem {
   type: 'image' | 'video';
   category: 'before_after' | 'clinic' | 'video';
   image?: string;
+  publicFilename?: string;
   videoUrl?: string;
   title: string;
   description: string;
@@ -31,6 +32,7 @@ const galleryData: GalleryItem[] = [
     category: 'video',
     videoUrl: heroVideo,
     image: heroBg,
+    publicFilename: 'hero-bg.jpg',
     title: "Brightline Dental Studio - Video Tour",
     description: "Take a 3D virtual look inside our modern studio, state-of-the-art operatory suites, and gentle patient lounge.",
     tag: "Studio Tour"
@@ -40,6 +42,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'before_after',
     image: beforeAfter1,
+    publicFilename: 'before_after_1.jpg',
     title: "Cosmetic Veneers Transformation",
     description: "Custom porcelain veneers crafted to complement natural facial symmetry and achieve a radiant, natural smile.",
     tag: "Cosmetic Dentistry"
@@ -49,6 +52,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'before_after',
     image: beforeAfter2,
+    publicFilename: 'before_after_2.jpg',
     title: "Professional Whitening & Alignment",
     description: "In-office laser whitening paired with subtle alignment therapy for bright, evenly spaced teeth.",
     tag: "Whitening & Aligners"
@@ -58,6 +62,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'clinic',
     image: clinicInterior,
+    publicFilename: 'clinic_interior.jpg',
     title: "Ergonomic Treatment Operatory",
     description: "Designed for ultimate patient relaxation with ceiling monitors, noise-canceling headsets, and ambient lighting.",
     tag: "Studio Interior"
@@ -67,6 +72,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'clinic',
     image: smileLab,
+    publicFilename: 'smile_lab_interior.jpg',
     title: "3D Digital Smile Design Lab",
     description: "On-site CAD/CAM milling and digital intraoral scanners for same-day crowns and precision treatment planning.",
     tag: "Digital Tech"
@@ -76,6 +82,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'clinic',
     image: facility1,
+    publicFilename: 'clinic_facility_1.jpg',
     title: "Modern Clinical Care Center",
     description: "Equipped with advanced air purification, low-radiation digital X-rays, and sterile processing centers.",
     tag: "Facility"
@@ -85,6 +92,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'clinic',
     image: facility2,
+    publicFilename: 'clinic_facility_2.jpg',
     title: "Warm Patient Reception Lounge",
     description: "A calming environment with complimentary beverages, quiet seating, and friendly concierge reception.",
     tag: "Lounge"
@@ -94,6 +102,7 @@ const galleryData: GalleryItem[] = [
     type: 'image',
     category: 'clinic',
     image: clinicScreenshot,
+    publicFilename: 'clinic_screenshot.jpg',
     title: "Comprehensive Oral Health Suite",
     description: "High-definition intraoral cameras allow patients to see exactly what the doctor sees in real time.",
     tag: "Diagnostics"
@@ -104,8 +113,21 @@ const FALLBACK_GALLERY = 'https://images.unsplash.com/photo-1588776814546-1ffcf4
 
 function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: GalleryItem) => void }) {
   const [imgSrc, setImgSrc] = useState(item.image || FALLBACK_GALLERY);
+  const [attempt, setAttempt] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleImgError = () => {
+    if (attempt === 0 && item.publicFilename) {
+      setAttempt(1);
+      setImgSrc(`${import.meta.env.BASE_URL}${item.publicFilename}`);
+    } else if (attempt === 1 && item.publicFilename) {
+      setAttempt(2);
+      setImgSrc(`./${item.publicFilename}`);
+    } else {
+      setImgSrc(FALLBACK_GALLERY);
+    }
+  };
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -150,7 +172,7 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
         ) : (
           <img 
             src={imgSrc} 
-            onError={() => setImgSrc(FALLBACK_GALLERY)}
+            onError={handleImgError}
             alt={item.title} 
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />

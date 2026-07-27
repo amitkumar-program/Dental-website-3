@@ -8,6 +8,20 @@ const FALLBACK_INTERIOR = 'https://images.unsplash.com/photo-1629909613654-28e37
 
 export function About() {
   const [imgSrc, setImgSrc] = useState(interiorImg);
+  const [attempt, setAttempt] = useState(0);
+
+  const handleError = () => {
+    if (attempt === 0) {
+      setAttempt(1);
+      setImgSrc(`${import.meta.env.BASE_URL}clinic_interior.jpg`);
+    } else if (attempt === 1) {
+      setAttempt(2);
+      setImgSrc('./clinic_interior.jpg');
+    } else {
+      setImgSrc(FALLBACK_INTERIOR);
+    }
+  };
+
   return (
     <section id="about" className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -76,7 +90,7 @@ export function About() {
                   and we generated it dynamically, we use an img tag with the imported path. */}
               <img 
                 src={imgSrc} 
-                onError={() => setImgSrc(FALLBACK_INTERIOR)}
+                onError={handleError}
                 alt="Brightline Dental Studio Interior" 
                 className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
               />

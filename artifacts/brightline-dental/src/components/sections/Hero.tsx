@@ -46,7 +46,13 @@ export function Hero() {
       {/* Background Image Layer (Always visible underneath as poster or fallback) */}
       <img
         src={bgSrc}
-        onError={() => setBgSrc(FALLBACK_HERO_BG)}
+        onError={() => {
+          if (bgSrc !== `${import.meta.env.BASE_URL}hero-bg.jpg`) {
+            setBgSrc(`${import.meta.env.BASE_URL}hero-bg.jpg`);
+          } else {
+            setBgSrc(FALLBACK_HERO_BG);
+          }
+        }}
         alt="Brightline Dental Studio Background"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
       />
@@ -66,8 +72,11 @@ export function Hero() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
         >
           <source src={heroVideo} type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}Heo-video.mp4`} type="video/mp4" />
+          <source src="./hero-video.mp4" type="video/mp4" />
+          <source src="./Heo-video.mp4" type="video/mp4" />
           <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/Heo-video.mp4" type="video/mp4" />
         </video>
       )}
       {/* ── Overlays ───────────────────────────────────────────────── */}
