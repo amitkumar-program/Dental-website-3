@@ -55,6 +55,7 @@ export function Hero() {
       {!videoError && (
         <video
           ref={videoRef}
+          src={heroVideo}
           autoPlay
           muted
           loop
@@ -65,8 +66,8 @@ export function Hero() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
         >
           <source src={heroVideo} type="video/mp4" />
-          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
-          <source src={`${import.meta.env.BASE_URL}Heo-video.mp4`} type="video/mp4" />
+          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/Heo-video.mp4" type="video/mp4" />
         </video>
       )}
       {/* ── Overlays ───────────────────────────────────────────────── */}
