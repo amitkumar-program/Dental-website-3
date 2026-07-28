@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "dev": "PORT=3001 npm run dev --workspace=@workspace/api-server & npm run dev --workspace=@workspace/brightline-dental",
-    "build": "npm run typecheck && npm run build --workspaces --if-present && mkdir -p dist && cp -r artifacts/brightline-dental/dist/* dist/",
+    "build": "npm run typecheck && npm run build --workspaces --if-present && mkdir -p dist && cp -r artifacts/brightline-dental/dist/* dist/ && touch dist/.nojekyll",
     "start": "node --enable-source-maps artifacts/api-server/dist/index.mjs",
     "typecheck:libs": "tsc --build",
     "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present",

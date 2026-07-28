@@ -1,7 +1,8 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
-import clinicInterior from '@/assets/images/clinic_interior.jpg';
+import clinicInterior from '../../assets/images/clinic-interior.JPG';
+import smileLabInterior from '../../assets/images/smile-lab-interior.JPG';
 
 export function About() {
   return (
@@ -67,17 +68,33 @@ export function About() {
             <div className="absolute -inset-4 bg-secondary rounded-[2.5rem] -z-10 transform rotate-3 scale-105" />
             <div className="absolute -inset-4 bg-primary/10 rounded-[2.5rem] -z-10 transform -rotate-2 scale-105" />
             
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white aspect-[4/5] lg:aspect-square">
-              {/* Note: In a real app this would use the generated image, but since Vite needs to bundle it,
-                  and we generated it dynamically, we use an img tag with the imported path. */}
-              <img 
-                src={clinicInterior}
-                alt="Brightline Dental Studio Interior" 
-                className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
-              />
-              
-              {/* Decorative overlay */}
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-3xl" />
+            <div className="space-y-6">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white aspect-[4/3]">
+                <img 
+                  src={clinicInterior || `${import.meta.env.BASE_URL}images/clinic-interior.JPG`}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/clinic-interior.JPG`;
+                  }}
+                  alt="Brightline Dental Studio Interior" 
+                  className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium">
+                  Clinic Facility & Treatment Suite
+                </div>
+              </div>
+              <div className="relative rounded-3xl overflow-hidden shadow-xl bg-white aspect-[16/9]">
+                <img 
+                  src={smileLabInterior || `${import.meta.env.BASE_URL}images/smile-lab-interior.JPG`}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/smile-lab-interior.JPG`;
+                  }}
+                  alt="Brightline Smile Lab Studio" 
+                  className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium">
+                  State-of-the-Art Smile Lab
+                </div>
+              </div>
             </div>
           </motion.div>
           

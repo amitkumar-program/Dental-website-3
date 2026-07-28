@@ -1,28 +1,28 @@
 
 import { motion } from 'framer-motion';
 
-import drElena from '@/assets/images/dr_elena.jpg';
-import drAdrian from '@/assets/images/dr_adrian.jpg';
-import drSophia from '@/assets/images/dr_sophia.jpg';
+import drElena from '../../assets/images/dr-elena.JPG';
+import drAdrian from '../../assets/images/dr-adrian.JPG';
+import drSophia from '../../assets/images/dr-sophia.JPG';
 
 const team = [
   {
     name: "Dr. Elena Marsh, DDS",
     role: "Founder · General & Cosmetic",
     bio: "Dr. Marsh founded Brightline with a vision to blend clinical excellence with genuine patient comfort.",
-    image: drElena,
+    image: drElena || `${import.meta.env.BASE_URL}images/dr-elena.JPG`,
   },
   {
     name: "Dr. Adrian Cole, DMD",
     role: "Orthodontics & Invisalign",
     bio: "Dr. Cole has helped hundreds of patients achieve straighter, more confident smiles through cutting-edge aligner technology.",
-    image: drAdrian,
+    image: drAdrian || `${import.meta.env.BASE_URL}images/dr-adrian.JPG`,
   },
   {
     name: "Dr. Sophia Holeson, DDS",
     role: "Pediatric & Family Dentistry",
     bio: "Dr. Holeson specializes in gentle pediatric dentistry, creating a warm, joyful environment where young patients build healthy dental habits for life.",
-    image: drSophia,
+    image: drSophia || `${import.meta.env.BASE_URL}images/dr-sophia.JPG`,
   }
 ];
 
@@ -39,6 +39,10 @@ function TeamMemberCard({ member, index }: { member: typeof team[0]; index: numb
         <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 bg-secondary relative">
           <img 
             src={member.image} 
+            onError={(e) => {
+              const filename = member.name.includes('Elena') ? 'dr-elena.JPG' : member.name.includes('Adrian') ? 'dr-adrian.JPG' : 'dr-sophia.JPG';
+              (e.currentTarget as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/${filename}`;
+            }}
             alt={member.name} 
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
           />

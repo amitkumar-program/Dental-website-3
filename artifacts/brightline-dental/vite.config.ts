@@ -13,7 +13,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-let basePath = process.env.BASE_PATH || '/Dental-website-3/';
+let basePath = process.env.BASE_PATH || '/';
 if (!basePath.endsWith('/')) {
   basePath += '/';
 }

@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, Pause, X, Maximize2, Sparkles, Video, Image as ImageIcon } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
-import beforeAfter1 from '@/assets/images/before_after_1.jpg';
-import beforeAfter2 from '@/assets/images/before_after_2.jpg';
+import beforeAfter1 from '../../assets/images/before-after-1.JPG';
+import beforeAfter2 from '../../assets/images/before-after-2.JPG';
 
 export interface GalleryItem {
   id: string | number;
@@ -22,7 +22,7 @@ const galleryData: GalleryItem[] = [
     id: 1,
     type: 'image',
     category: 'before_after',
-    image: beforeAfter1,
+    image: beforeAfter1 || `${import.meta.env.BASE_URL}images/before-after-1.JPG`,
     title: "Cosmetic Veneers Transformation",
     description: "Custom porcelain veneers crafted to complement natural facial symmetry and achieve a radiant, natural smile.",
     tag: "Cosmetic Dentistry"
@@ -31,7 +31,7 @@ const galleryData: GalleryItem[] = [
     id: 2,
     type: 'image',
     category: 'before_after',
-    image: beforeAfter2,
+    image: beforeAfter2 || `${import.meta.env.BASE_URL}images/before-after-2.JPG`,
     title: "Professional Whitening & Alignment",
     description: "In-office laser whitening paired with subtle alignment therapy for bright, evenly spaced teeth.",
     tag: "Whitening & Aligners"
@@ -85,6 +85,10 @@ function GalleryCard({ item, onSelect }: { item: GalleryItem; onSelect: (item: G
         ) : (
           <img 
             src={item.image} 
+            onError={(e) => {
+              const filename = String(item.id).includes('1') ? 'before-after-1.JPG' : 'before-after-2.JPG';
+              (e.currentTarget as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/${filename}`;
+            }}
             alt={item.title} 
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />

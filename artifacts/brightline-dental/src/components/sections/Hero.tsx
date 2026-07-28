@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import heroBg from '@/assets/images/hero_bg.jpg';
+import heroBg from '../../assets/images/hero-bg.JPG';
 
 export function Hero() {
   const textVariants: Variants = {
@@ -24,13 +24,16 @@ export function Hero() {
     >
       {/* Background Image Layer */}
       <img
-        src={heroBg}
+        src={heroBg || `${import.meta.env.BASE_URL}images/hero-bg.JPG`}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/hero-bg.JPG`;
+        }}
         alt="Brightline Dental Studio Background"
-        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0 brightness-110 contrast-105"
       />
       {/* ── Overlays ───────────────────────────────────────────────── */}
-      {/* Dark vignette */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 pointer-events-none" />
+      {/* Soft vignette overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/15 pointer-events-none" />
       {/* Bottom fade to white for seamless scroll transition */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
       {/* Subtle primary-colour tint at bottom-left */}
